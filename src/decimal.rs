@@ -238,6 +238,12 @@ impl Decimal {
     /// assert_eq!(pi.to_string(), "3.1415926535897932384626433832");
     /// ```
     pub const fn from_parts(lo: u32, mid: u32, hi: u32, negative: bool, scale: u32) -> Decimal {
+        if scale > MAX_PRECISION {
+            panic!(
+                "Scale exceeds the maximum precision allowed: {} > {}",
+                scale, MAX_PRECISION
+            );
+        }
         Decimal {
             lo,
             mid,
